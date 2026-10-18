@@ -3,42 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="style/style.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <title>stopwatch</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>TimeFlow</title>
 </head>
 <body>
     <main class="app">
-        <h1 class="name">Stopwatch</h1>
+        <h1 class="name">TimeFlow</h1>
 
-        <section class="display">
-            <p id="time">00:00:00</p>
+        <nav class="modeSwitch">
+            <button id="stopwatchTab" class="modeBtn active" type="button">Stopwatch</button>
+            <button id="timerTab" class="modeBtn" type="button">Timer</button>
+        </nav>
+
+        <section id="stopwatchView" class="view">
+            <section class="display">
+                <p id="time">00:00:00</p>
+            </section>
+
+            <section class="controls">
+                <button id="startBtn" type="button" aria-label="start"><i class="fa-solid fa-play" aria-hidden="true"></i></button>
+                <button id="pauseBtn" type="button" aria-label="pause"><i class="fa-solid fa-pause" aria-hidden="true"></i></button>
+                <button id="resetBtn" type="button" aria-label="reset"><i class="fa-solid fa-rotate-right" aria-hidden="true"></i></button>
+                <button id="lapBtn" type="button" aria-label="lap"><i class="fa-solid fa-flag" aria-hidden="true"></i></button>
+            </section>
+
+            <section class="laps">
+                <h2 class="lapsTitle">Laps</h2>
+                <ul id="lapsList"></ul>
+            </section>
         </section>
 
-        <section class="controls">
+        <section id="timerView" class="view hidden">
+            <section class="display">
+                <p id="timerTime">00:05:00</p>
+            </section>
 
-            <button id="startBtn" aria-label="start"><i class="fa-solid fa-play" aria-hidden="true"></i></button>
-            <button id="pauseBtn" aria-label="pause"><i class="fa-solid fa-pause" aria-hidden="true"></i></button>
-            <button id="resetBtn" aria-label="reset"><i class="fa-solid fa-rotate-right" aria-hidden="true"></i></button>
-            <button id="lapBtn" aria-label="lap"><i class="fa-solid fa-flag" aria-hidden="true"></i></button>
+            <p id="timerMessage" class="timerMessage"></p>
 
+            <div class="presets">
+                <button class="presetBtn" type="button" data-minutes="5">5 min</button>
+                <button class="presetBtn" type="button" data-minutes="10">10 min</button>
+                <button class="presetBtn" type="button" data-minutes="25">25 min</button>
+            </div>
+
+            <div class="customTime">
+                <input id="timerMinutes" type="number" min="0" max="99" placeholder="Min" aria-label="minutes">
+                <input id="timerSeconds" type="number" min="0" max="59" placeholder="Sec" aria-label="seconds">
+                <button id="timerSetBtn" type="button">Set</button>
+            </div>
+
+            <section class="controls">
+                <button id="timerStartBtn" type="button" aria-label="start"><i class="fa-solid fa-play" aria-hidden="true"></i></button>
+                <button id="timerPauseBtn" type="button" aria-label="pause"><i class="fa-solid fa-pause" aria-hidden="true"></i></button>
+                <button id="timerResetBtn" type="button" aria-label="reset"><i class="fa-solid fa-rotate-right" aria-hidden="true"></i></button>
+            </section>
         </section>
 
-        <section class="laps">
-            <h2 class="lapsTitle">Laps</h2>
-
-            <ul id="lapsList">
-                <li class="lapItem">
-                   <span class="lapNumber">Lap 1</span>
-                   <span class="lapTime">00:00:05</span>
-                </li>
-            </ul>
+        <section class="history">
+            <h2 class="historyTitle">History</h2>
+            <ul id="historyList"></ul>
+            <button id="clearHistoryBtn" type="button">Clear history</button>
         </section>
-
     </main>
-    
 
-    <script src="js/index.js"></script>
+    <script type="module" src="js/index.js"></script>
 </body>
 </html>
