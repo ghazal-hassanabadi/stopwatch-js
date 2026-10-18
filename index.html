@@ -8,9 +8,20 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <title>TimeFlow</title>
 </head>
+
+    <header class="header">
+       <h1 class="logo">
+        <i class="fa-solid fa-stopwatch" aria-hidden="true"></i>
+        <span>TimeFlow</span>
+       </h1>
+       
+    </header>
+
 <body>
+
+
     <main class="app">
-        <h1 class="name">TimeFlow</h1>
+
 
         <nav class="modeSwitch">
             <button id="stopwatchTab" class="modeBtn active" type="button">Stopwatch</button>
@@ -22,12 +33,11 @@
                 <p id="time">00:00:00</p>
             </section>
 
-            <section class="controls">
-                <button id="startBtn" type="button" aria-label="start"><i class="fa-solid fa-play" aria-hidden="true"></i></button>
-                <button id="pauseBtn" type="button" aria-label="pause"><i class="fa-solid fa-pause" aria-hidden="true"></i></button>
-                <button id="resetBtn" type="button" aria-label="reset"><i class="fa-solid fa-rotate-right" aria-hidden="true"></i></button>
-                <button id="lapBtn" type="button" aria-label="lap"><i class="fa-solid fa-flag" aria-hidden="true"></i></button>
-            </section>
+        <section class="controls">
+            <button id="resetBtn" type="button" aria-label="reset"><i class="fa-solid fa-rotate-right" aria-hidden="true"></i></button>
+             <button id="toggleBtn" type="button" aria-label="start"><i class="fa-solid fa-play" aria-hidden="true"></i></button>
+            <button id="lapBtn" type="button" aria-label="lap"><i class="fa-solid fa-flag" aria-hidden="true"></i></button>
+        </section>
 
             <section class="laps">
                 <h2 class="lapsTitle">Laps</h2>
@@ -41,7 +51,7 @@
             </section>
 
             <p id="timerMessage" class="timerMessage"></p>
-
+        <div class="timerSide">
             <div class="presets">
                 <button class="presetBtn" type="button" data-minutes="5">5 min</button>
                 <button class="presetBtn" type="button" data-minutes="10">10 min</button>
@@ -53,19 +63,14 @@
                 <input id="timerSeconds" type="number" min="0" max="59" placeholder="Sec" aria-label="seconds">
                 <button id="timerSetBtn" type="button">Set</button>
             </div>
-
+        </div>
             <section class="controls">
-                <button id="timerStartBtn" type="button" aria-label="start"><i class="fa-solid fa-play" aria-hidden="true"></i></button>
-                <button id="timerPauseBtn" type="button" aria-label="pause"><i class="fa-solid fa-pause" aria-hidden="true"></i></button>
+                <button id="timerToggleBtn" type="button" aria-label="start"><i class="fa-solid fa-play" aria-hidden="true"></i></button>
                 <button id="timerResetBtn" type="button" aria-label="reset"><i class="fa-solid fa-rotate-right" aria-hidden="true"></i></button>
             </section>
         </section>
 
-        <section class="history">
-            <h2 class="historyTitle">History</h2>
-            <ul id="historyList"></ul>
-            <button id="clearHistoryBtn" type="button">Clear history</button>
-        </section>
+
     </main>
 
     <script type="module" src="js/index.js"></script>

@@ -1,4 +1,7 @@
 import "./stopwatch.js";
+import "./timer.js";
+
+
 
 const stopwatchTab = document.querySelector("#stopwatchTab");
 const timerTab = document.querySelector("#timerTab");
