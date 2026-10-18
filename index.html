@@ -10,7 +10,7 @@
 </head>
 <body>
     <main class="app">
-        <h1 class="name">Timer</h1>
+        <h1 class="name">Stopwatch</h1>
 
         <section class="display">
             <p id="time">00:00:00</p>
@@ -18,17 +18,22 @@
 
         <section class="controls">
 
-            <button id="startBtn">start</button>
-            <button id="pauseBtn">pause</button>
-            <button id="resetBtn">reset</button>
-            <button id="lapBtn">lap</button>
+            <button id="startBtn" aria-label="start"><i class="fa-solid fa-play" aria-hidden="true"></i></button>
+            <button id="pauseBtn" aria-label="pause"><i class="fa-solid fa-pause" aria-hidden="true"></i></button>
+            <button id="resetBtn" aria-label="reset"><i class="fa-solid fa-rotate-right" aria-hidden="true"></i></button>
+            <button id="lapBtn" aria-label="lap"><i class="fa-solid fa-flag" aria-hidden="true"></i></button>
 
         </section>
 
         <section class="laps">
             <h2 class="lapsTitle">Laps</h2>
 
-            <ul id="lapsList"></ul>
+            <ul id="lapsList">
+                <li class="lapItem">
+                   <span class="lapNumber">Lap 1</span>
+                   <span class="lapTime">00:00:05</span>
+                </li>
+            </ul>
         </section>
 
     </main>
