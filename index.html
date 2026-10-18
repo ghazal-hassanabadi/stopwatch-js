@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="style/style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>stopwatch</title>
+</head>
+<body>
+    <main class="app">
+        <h1 class="name">Timer</h1>
+
+        <section class="display">
+            <p id="time">00:00:00</p>
+        </section>
+
+        <section class="controls">
+
+            <button id="startBtn">start</button>
+            <button id="pauseBtn">pause</button>
+            <button id="resetBtn">reset</button>
+            <button id="lapBtn">lap</button>
+
+        </section>
+
+        <section class="laps">
+            <h2 class="lapsTitle">Laps</h2>
+
+            <ul id="lapsList"></ul>
+        </section>
+
+    </main>
+    
+
+    <script src="js/index.js"></script>
+</body>
+</html>
