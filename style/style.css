@@ -1,420 +1,371 @@
+
 :root {
-    --bg: #0b0d1f;
-    --surface: #161a33;
-    --text: #ffffff;
-    --text-muted: #8b90b5;
-    --accent: #7c5cff;
-    --accent-hover: #9478ff;
-    --danger: #ff5c7a;
+    --bg: #070a1a;
+    --surface: rgba(255, 255, 255, 0.055);
+    --border: rgba(255, 255, 255, 0.11);
+    --text: #f2f4ff;
+    --text-muted: #8f98c4;
+    --warn: #fbbf24;
+    --good: #7dd3fc;
 
     --font-main: "Vazirmatn", sans-serif;
-    --radius: 8px;
+    --font-num: "Inter", "Vazirmatn", sans-serif;
+    --radius: 16px;
+}
+
+body[data-mode="stopwatch"] {
+    --c1: #38bdf8;
+    --c2: #6366f1;
+    --glow: rgba(79, 110, 247, 0.26);
+}
+
+body[data-mode="timer"] {
+    --c1: #c4b5fd;
+    --c2: #7c3aed;
+    --glow: rgba(139, 92, 246, 0.26);
 }
 
 * {
-  box-sizing: border-box; margin: 0; padding: 0;
- }
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
- body {
+body {
+    min-height: 100dvh;
     font-family: var(--font-main);
- }
-
- .header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 20;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 64px;
-    padding: 0 24px;
     color: var(--text);
-    background: rgba(11, 13, 31, 0.7);
-    backdrop-filter: blur(8px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-    margin-bottom: 30px;
+    background:
+        radial-gradient(60% 45% at 50% 0%, var(--glow), transparent 70%),
+        var(--bg);
+    background-attachment: fixed;
+}
+
+button {
+    font-family: inherit;
+    color: inherit;
+    border: none;
+    cursor: pointer;
+}
+
+button:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* ---------- header ---------- */
+
+.header {
+    display: flex;
+    justify-content: center;
+    padding: 22px 20px 8px;
 }
 
 .logo {
     display: flex;
     align-items: center;
     gap: 10px;
-    font-size: 1.4rem;
+    font-size: 1.25rem;
     font-weight: 700;
+    letter-spacing: 0.3px;
 }
 
 .logo i {
-    color: var(--accent);
+    color: var(--c1);
 }
 
-.headerClock {
-    color: var(--text-muted);
-    font-variant-numeric: tabular-nums;
-}
+/* ---------- layout ---------- */
 
-
-
- .app {
-    min-height: 100dvh;
-    background: radial-gradient(circle at top, #1a1440, var(--bg) 70%);
-    color: var(--text);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 16px;
-    gap: 25px;
-    padding-top: 80px;
- }
-
- .name {
-    font-size: 30px;
-    color: var(--text-muted);
-    font-weight: 500;
- }
-
- .display {
-    width:min(80vw , 320px);
-    aspect-ratio:1;
-    border:6px solid var(--accent);
-    border-radius:50%;
-    display:flex;
-    justify-content:center;
-    align-items: center;
-    box-shadow: 0 0 10px rgba(124, 92, 255, 0.4);
- }
-
- #time {
-    font-size:clamp(2rem, 12vw, 3rem);
-
-    font-weight: 700;
-    font-variant-numeric: tabular-nums;
-    letter-spacing: 2px;
- }
-
- #timerTime {
-    font-size:clamp(2rem, 12vw, 3rem);
-
-    font-weight: 700;
-    font-variant-numeric: tabular-nums;
-    letter-spacing: 2px;
- }
-
- .controls {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 12px;
+.app {
     width: 100%;
-    max-width: 400px;
- }
-
- button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    
-    flex: 1 1 calc(50% - 6px);
-    min-height: 48px;
-    border: none;
-    border-radius: var(--radius);
-    background: var(--surface);
-    color: var(--text);
-    font-family: inherit;
-    font-size: 22px;
-    cursor: pointer;
- }
-
-
-
- #resetBtn {
-    background: var(--danger);
- }
-
- button:hover {
-    filter: brightness(1.15);
- }
-
- .laps {
-    width:100% ;
-    max-width:400px ;
-    background: var(--surface);
-    border-radius: var(--radius);
-    padding: 16px;
- }
-
- #lapsList {
-    list-style:none ;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    max-height: 200px;
-    overflow-y: auto;
- }
-
- .lapItem {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 12px;
-    background: var(--bg);
-    border-radius: var(--radius);
-    font-variant-numeric: tabular-nums;
- }
-
- .lapsTitle {
-    font-size:25px;
-    color: var(--text-muted);
-    margin-bottom: 12px;
- }
-
-
- .view {
+    max-width: 440px;
+    margin: 0 auto;
+    padding: 12px 20px 48px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 25px;
+    gap: 28px;
+}
+
+.view {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
 }
 
-.hidden {
-    display: none;
-}
+/* ---------- mode tabs ---------- */
 
 .modeSwitch {
     display: flex;
-    gap: 8px;
+    gap: 4px;
     width: 100%;
-    max-width: 400px;
+    max-width: 300px;
+    padding: 5px;
     background: var(--surface);
-    border-radius: var(--radius);
-    padding: 6px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
 }
 
 .modeBtn {
     flex: 1;
-    min-height: 40px;
+    padding: 10px 0;
     font-size: 1rem;
     background: transparent;
     color: var(--text-muted);
+    border-radius: 999px;
+    transition: color 0.2s, background 0.2s;
 }
 
 .modeBtn.active {
-    background: var(--accent);
-    color: var(--text);
+    background: linear-gradient(135deg, var(--c1), var(--c2));
+    color: #0a0c1f;
+    font-weight: 700;
 }
+
+/* ---------- clock ---------- */
+
+.clock {
+    position: relative;
+    width: min(86vw, 340px);
+    aspect-ratio: 1;
+}
+
+.ring {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+.stopA { stop-color: var(--c1); }
+.stopB { stop-color: var(--c2); }
+
+.ringTrack {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.07);
+    stroke-width: 10;
+}
+
+.ringProgress {
+    fill: none;
+    stroke-width: 10;
+    stroke-linecap: round;
+    filter: drop-shadow(0 0 9px var(--c2));
+}
+
+.ringDot {
+    fill: #fff;
+    filter: drop-shadow(0 0 9px var(--c1));
+}
+
+.readout {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.time {
+    direction: ltr;
+    font-family: var(--font-num);
+    font-weight: 700;
+    font-size: clamp(2.4rem, 13vw, 3.6rem);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -1px;
+    line-height: 1;
+}
+
+.cs {
+    font-size: 0.5em;
+    letter-spacing: 0;
+    margin-left: 3px;
+    color: var(--c1);
+}
+
+.clock.done .time,
+.clock.done .cs {
+    color: var(--warn);
+}
+
+.clock.done .time {
+    animation: pulse 1s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    50% { opacity: 0.35; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .clock.done .time { animation: none; }
+}
+
+/* ---------- round buttons ---------- */
+
+.controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 26px;
+}
+
+.btn {
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    transition: transform 0.12s, filter 0.2s;
+}
+
+.btn:not(:disabled):hover {
+    filter: brightness(1.3);
+}
+
+.btn:not(:disabled):active {
+    transform: scale(0.92);
+}
+
+.btnSide {
+    width: 58px;
+    height: 58px;
+    font-size: 1.1rem;
+}
+
+.btnMain {
+    width: 82px;
+    height: 82px;
+    font-size: 1.7rem;
+    border: none;
+    color: #0a0c1f;
+    background: linear-gradient(135deg, var(--c1), var(--c2));
+    box-shadow: 0 10px 30px -8px var(--c2);
+}
+
+.btnMain.running {
+    background: #fff;
+    box-shadow: 0 10px 30px -8px rgba(255, 255, 255, 0.45);
+}
+
+#resetBtn:not(:disabled):hover,
+#timerResetBtn:not(:disabled):hover {
+    color: var(--c1);
+}
+
+/* ---------- laps ---------- */
+
+.laps {
+    width: 100%;
+    padding: 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+}
+
+.lapsTitle {
+    margin-bottom: 10px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-muted);
+}
+
+#lapsList {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-height: 240px;
+    overflow-y: auto;
+}
+
+#lapsList:empty::before {
+    content: "No laps yet";
+    padding: 14px 0;
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.lapItem {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 16px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.04);
+    font-family: var(--font-num);
+    font-variant-numeric: tabular-nums;
+}
+
+.lapNumber { color: var(--text-muted); }
+.lapSplit  { font-weight: 600; }
+.lapTotal  { color: var(--text-muted); }
+
+.lapItem.best .lapSplit  { color: var(--good); }
+.lapItem.worst .lapSplit { color: var(--warn); }
+
+/* ---------- timer extras ---------- */
 
 .timerMessage {
     min-height: 1.5em;
-    color: var(--accent-hover);
+    margin-top: -12px;
     font-weight: 500;
-}
-
-.presets,
-.customTime {
-    display: flex;
-    gap: 12px;
-    width: 100%;
-    max-width: 400px;
-}
-
-.presetBtn,
-#timerSetBtn {
-    flex: 1;
-    font-size: 1rem;
-}
-
-.customTime input {
-    flex: 1;
-    min-width: 0;
-    min-height: 48px;
-    border: none;
-    border-radius: var(--radius);
-    background: var(--surface);
-    color: var(--text);
-    font-family: inherit;
-    font-size: 1rem;
-    text-align: center;
-}
-
-#timerView .controls button {
-    flex: 1 1 0;
-}
-
-
-
-#timerResetBtn {
-    background: var(--danger);
+    color: var(--c1);
 }
 
 .timerSide {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 12px;
     width: 100%;
-    max-width: 400px;
 }
 
-
-
-#toggleBtn,
-#timerToggleBtn {
-    background: var(--accent);
-    box-shadow: 0 0 5px rgba(124, 92, 255, 0.5);
-    transition: background 0.2s, color 0.2s, transform 0.1s;
+.presets,
+.customTime {
+    display: flex;
+    gap: 8px;
+    width: 100%;
 }
 
-#toggleBtn.running,
-#timerToggleBtn.running {
-    background: var(--text);
-    color: var(--bg);
-    box-shadow: 0 0 12px rgba(255, 255, 255, 0.35);
+.presetBtn {
+    flex: 1;
+    padding: 11px 0;
+    font-size: 0.95rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    transition: border-color 0.2s, color 0.2s;
 }
 
-#toggleBtn.running:hover,
-#timerToggleBtn.running:hover {
-    filter: brightness(0.85);
+.presetBtn.active {
+    border-color: var(--c1);
+    color: var(--c1);
 }
 
-button:active {
-    transform: scale(0.95);
+.customTime input {
+    flex: 1;
+    min-width: 0;
+    min-height: 46px;
+    text-align: center;
+    font-family: inherit;
+    font-size: 1rem;
+    color: var(--text);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    outline: none;
 }
 
-/*-----------------------------------tablet---------*/
+.customTime input:focus {
+    border-color: var(--c1);
+}
 
-@media (min-width: 766px){
-
-    .app {
-        padding-left: 170px;
-    }
-
-    #stopwatchView:not(.hidden) {
-        display: grid;
-        grid-template-columns: 320px minmax(220px, 340px);
-        justify-content: center;
-        align-items: start;
-        column-gap: 24px;
-        row-gap: 25px;
-    }
-
-    #stopwatchView .display {
-        grid-column: 1;
-        grid-row: 1;
-    }
-
-    #stopwatchView .controls {
-        grid-column: 1;
-        grid-row: 2;
-    }
-
-    #stopwatchView .laps {
-        grid-column: 2;
-        grid-row: 1 / span 2;
-        align-self: stretch;
-        max-width: none;
-    }
-
-    #lapsList {
-        max-height: 360px;
-    }
-
-
-
-    .modeSwitch {
-        position: fixed;
-        top: 80px;
-        left: 16px;
-        z-index: 10;
-
-        flex-direction: column;
-        width: 150px;
-        max-width: none;
-        height: fit-content;
-
-        background: transparent;
-        padding: 0;
-    }
-
-    .modeBtn {
-        flex: none;
-        justify-content: flex-start;
-        padding: 0 16px;
-    }
-
-
-        #timerView:not(.hidden) {
-        display: grid;
-        grid-template-columns: 320px minmax(220px, 340px);
-        justify-content: center;
-        align-items: start;
-        column-gap: 24px;
-        row-gap: 25px;
-    }
-
-    #timerView .display {
-        grid-column: 1;
-        grid-row: 1;
-    }
-
-    #timerView .timerMessage {
-        grid-column: 1;
-        grid-row: 2;
-        text-align: center;
-    }
-
-    #timerView .controls {
-        grid-column: 1;
-        grid-row: 3;
-    }
-
-    .timerSide {
-        grid-column: 2;
-        grid-row: 1 / span 3;
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-        align-self: start;
-    }
-
-    .timerSide .presets,
-    .timerSide .customTime {
-        max-width: none;
-    }
-
-
-  }
-
-  @media (min-width: 1100px){
-
-        .modeSwitch {
-        top: 88px;
-        left: 24px;
-        width: 180px;
-
-    }
-
-    .modeBtn {
-        min-height: 48px;
-        font-size: 1.1rem;
-    }
-
-    .app {
-        padding-left: 220px;
-    }
-
-    #stopwatchView:not(.hidden) {
-        grid-template-columns: 320px 360px;
-        column-gap: 48px;
-    }
-
-        #timerView:not(.hidden) {
-            display: grid;
-            grid-template-columns: 320px minmax(220px, 340px);
-            justify-content: center;
-            align-items: start;
-            column-gap: 24px;
-            row-gap: 1px;
-    }
-  }
+#timerSetBtn {
+    padding: 0 24px;
+    background:
