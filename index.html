@@ -1,43 +1,63 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <title>TimeFlow</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&family=Vazirmatn:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style/style.css">
 </head>
+<body data-mode="stopwatch">
 
     <header class="header">
-       <h1 class="logo">
-        <i class="fa-solid fa-stopwatch" aria-hidden="true"></i>
-        <span>TimeFlow</span>
-       </h1>
-       
+        <h1 class="logo">
+            <i class="fa-solid fa-stopwatch" aria-hidden="true"></i>
+            <span>TimeFlow</span>
+        </h1>
     </header>
-
-<body>
-
 
     <main class="app">
 
-
-        <nav class="modeSwitch">
-            <button id="stopwatchTab" class="modeBtn active" type="button">Stopwatch</button>
-            <button id="timerTab" class="modeBtn" type="button">Timer</button>
+        <nav class="modeSwitch" role="tablist">
+            <button id="stopwatchTab" class="modeBtn active" type="button" role="tab" aria-selected="true">Stopwatch</button>
+            <button id="timerTab" class="modeBtn" type="button" role="tab" aria-selected="false">Timer</button>
         </nav>
 
+        <!-- ============ Stopwatch ============ -->
         <section id="stopwatchView" class="view">
-            <section class="display">
-                <p id="time">00:00:00</p>
-            </section>
+            <div class="clock">
+                <svg class="ring" viewBox="0 0 300 300" aria-hidden="true">
+                    <defs>
+                        <linearGradient id="swGradient" x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0%" class="stopA"/>
+                            <stop offset="100%" class="stopB"/>
+                        </linearGradient>
+                    </defs>
+                    <circle class="ringTrack" cx="150" cy="150" r="120"/>
+                    <circle id="ring" class="ringProgress" cx="150" cy="150" r="120"
+                            stroke="url(#swGradient)" transform="rotate(-90 150 150)"/>
+                    <circle id="dot" class="ringDot" cx="150" cy="30" r="9"/>
+                </svg>
+                <div class="readout">
+                    <p class="time"><span id="timeMain">00:00</span><span id="timeCs" class="cs">.00</span></p>
+                </div>
+            </div>
 
-        <section class="controls">
-            <button id="resetBtn" type="button" aria-label="reset"><i class="fa-solid fa-rotate-right" aria-hidden="true"></i></button>
-             <button id="toggleBtn" type="button" aria-label="start"><i class="fa-solid fa-play" aria-hidden="true"></i></button>
-            <button id="lapBtn" type="button" aria-label="lap"><i class="fa-solid fa-flag" aria-hidden="true"></i></button>
-        </section>
+            <div class="controls">
+                <button id="resetBtn" class="btn btnSide" type="button" aria-label="reset">
+                    <i class="fa-solid fa-rotate-left" aria-hidden="true"></i>
+                </button>
+                <button id="toggleBtn" class="btn btnMain" type="button" aria-label="start">
+                    <i class="fa-solid fa-play" aria-hidden="true"></i>
+                </button>
+                <button id="lapBtn" class="btn btnSide" type="button" aria-label="lap">
+                    <i class="fa-solid fa-flag" aria-hidden="true"></i>
+                </button>
+            </div>
 
             <section class="laps">
                 <h2 class="lapsTitle">Laps</h2>
@@ -45,31 +65,52 @@
             </section>
         </section>
 
+        <!-- ============ Timer ============ -->
         <section id="timerView" class="view hidden">
-            <section class="display">
-                <p id="timerTime">00:05:00</p>
-            </section>
-
-            <p id="timerMessage" class="timerMessage"></p>
-        <div class="timerSide">
-            <div class="presets">
-                <button class="presetBtn" type="button" data-minutes="5">5 min</button>
-                <button class="presetBtn" type="button" data-minutes="10">10 min</button>
-                <button class="presetBtn" type="button" data-minutes="25">25 min</button>
+            <div id="timerClock" class="clock">
+                <svg class="ring" viewBox="0 0 300 300" aria-hidden="true">
+                    <defs>
+                        <linearGradient id="tmGradient" x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0%" class="stopA"/>
+                            <stop offset="100%" class="stopB"/>
+                        </linearGradient>
+                    </defs>
+                    <circle class="ringTrack" cx="150" cy="150" r="120"/>
+                    <circle id="timerRing" class="ringProgress" cx="150" cy="150" r="120"
+                            stroke="url(#tmGradient)" transform="rotate(-90 150 150)"/>
+                    <circle id="timerDot" class="ringDot" cx="150" cy="30" r="9"/>
+                </svg>
+                <div class="readout">
+                    <p class="time"><span id="timerMain">05:00</span><span id="timerCs" class="cs">.00</span></p>
+                </div>
             </div>
 
-            <div class="customTime">
-                <input id="timerMinutes" type="number" min="0" max="99" placeholder="Min" aria-label="minutes">
-                <input id="timerSeconds" type="number" min="0" max="59" placeholder="Sec" aria-label="seconds">
-                <button id="timerSetBtn" type="button">Set</button>
+            <p id="timerMessage" class="timerMessage" aria-live="polite"></p>
+
+            <div class="controls">
+                <button id="timerResetBtn" class="btn btnSide" type="button" aria-label="reset">
+                    <i class="fa-solid fa-rotate-left" aria-hidden="true"></i>
+                </button>
+                <button id="timerToggleBtn" class="btn btnMain" type="button" aria-label="start">
+                    <i class="fa-solid fa-play" aria-hidden="true"></i>
+                </button>
             </div>
-        </div>
-            <section class="controls">
-                <button id="timerToggleBtn" type="button" aria-label="start"><i class="fa-solid fa-play" aria-hidden="true"></i></button>
-                <button id="timerResetBtn" type="button" aria-label="reset"><i class="fa-solid fa-rotate-right" aria-hidden="true"></i></button>
-            </section>
+
+            <div class="timerSide">
+                <div class="presets">
+                    <button class="presetBtn" type="button" data-minutes="1">1 min</button>
+                    <button class="presetBtn" type="button" data-minutes="5">5 min</button>
+                    <button class="presetBtn" type="button" data-minutes="10">10 min</button>
+                    <button class="presetBtn" type="button" data-minutes="25">25 min</button>
+                </div>
+
+                <div class="customTime">
+                    <input id="timerMinutes" type="number" inputmode="numeric" min="0" max="99" placeholder="Min" aria-label="minutes">
+                    <input id="timerSeconds" type="number" inputmode="numeric" min="0" max="59" placeholder="Sec" aria-label="seconds">
+                    <button id="timerSetBtn" type="button">Set</button>
+                </div>
+            </div>
         </section>
-
 
     </main>
 
