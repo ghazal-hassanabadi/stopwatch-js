@@ -1,7 +1,6 @@
+
 import "./stopwatch.js";
 import "./timer.js";
-
-
 
 const stopwatchTab = document.querySelector("#stopwatchTab");
 const timerTab = document.querySelector("#timerTab");
@@ -13,8 +12,14 @@ function showView(name) {
 
     stopwatchView.classList.toggle("hidden", !isStopwatch);
     timerView.classList.toggle("hidden", isStopwatch);
+
     stopwatchTab.classList.toggle("active", isStopwatch);
     timerTab.classList.toggle("active", !isStopwatch);
+
+    stopwatchTab.setAttribute("aria-selected", String(isStopwatch));
+    timerTab.setAttribute("aria-selected", String(!isStopwatch));
+
+    document.body.dataset.mode = name;
 }
 
 stopwatchTab.addEventListener("click", () => showView("stopwatch"));

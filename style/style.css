@@ -1,28 +1,20 @@
 
 :root {
-    --bg: #070a1a;
+    --bg: #060b1a;
     --surface: rgba(255, 255, 255, 0.055);
     --border: rgba(255, 255, 255, 0.11);
-    --text: #f2f4ff;
-    --text-muted: #8f98c4;
+    --text: #f1f5ff;
+    --text-muted: #8c9bc4;
     --warn: #fbbf24;
     --good: #7dd3fc;
+
+    --c1: #38bdf8;
+    --c2: #2563eb;
+    --glow: rgba(59, 130, 246, 0.26);
 
     --font-main: "Vazirmatn", sans-serif;
     --font-num: "Inter", "Vazirmatn", sans-serif;
     --radius: 16px;
-}
-
-body[data-mode="stopwatch"] {
-    --c1: #38bdf8;
-    --c2: #6366f1;
-    --glow: rgba(79, 110, 247, 0.26);
-}
-
-body[data-mode="timer"] {
-    --c1: #c4b5fd;
-    --c2: #7c3aed;
-    --glow: rgba(139, 92, 246, 0.26);
 }
 
 * {
@@ -61,8 +53,8 @@ button:disabled {
 
 .header {
     display: flex;
-    justify-content: center;
-    padding: 22px 20px 8px;
+    justify-content: flex-start;
+    padding: 6px 20px 0;
 }
 
 .logo {
@@ -78,17 +70,17 @@ button:disabled {
     color: var(--c1);
 }
 
-/* ---------- layout ---------- */
+
 
 .app {
     width: 100%;
     max-width: 440px;
     margin: 0 auto;
-    padding: 12px 20px 48px;
+    padding: 4px 20px 40px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 28px;
+    gap: 22px;
 }
 
 .view {
@@ -96,10 +88,10 @@ button:disabled {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 28px;
+    gap: 24px;
 }
 
-/* ---------- mode tabs ---------- */
+
 
 .modeSwitch {
     display: flex;
@@ -124,11 +116,11 @@ button:disabled {
 
 .modeBtn.active {
     background: linear-gradient(135deg, var(--c1), var(--c2));
-    color: #0a0c1f;
+    color: #06102a;
     font-weight: 700;
 }
 
-/* ---------- clock ---------- */
+
 
 .clock {
     position: relative;
@@ -160,8 +152,7 @@ button:disabled {
 }
 
 .ringDot {
-    fill: #fff;
-    filter: drop-shadow(0 0 9px var(--c1));
+    display: none;
 }
 
 .readout {
@@ -206,7 +197,7 @@ button:disabled {
     .clock.done .time { animation: none; }
 }
 
-/* ---------- round buttons ---------- */
+
 
 .controls {
     display: flex;
@@ -243,7 +234,7 @@ button:disabled {
     height: 82px;
     font-size: 1.7rem;
     border: none;
-    color: #0a0c1f;
+    color: #06102a;
     background: linear-gradient(135deg, var(--c1), var(--c2));
     box-shadow: 0 10px 30px -8px var(--c2);
 }
@@ -258,7 +249,7 @@ button:disabled {
     color: var(--c1);
 }
 
-/* ---------- laps ---------- */
+
 
 .laps {
     width: 100%;
@@ -310,7 +301,7 @@ button:disabled {
 .lapItem.best .lapSplit  { color: var(--good); }
 .lapItem.worst .lapSplit { color: var(--warn); }
 
-/* ---------- timer extras ---------- */
+
 
 .timerMessage {
     min-height: 1.5em;
@@ -368,4 +359,289 @@ button:disabled {
 
 #timerSetBtn {
     padding: 0 24px;
-    background:
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+}
+
+#timerSetBtn:hover {
+    border-color: var(--c1);
+    color: var(--c1);
+}
+
+/*----------------------------tablet------------------------*/
+
+@media (min-width: 766px) {
+
+    :root {
+        --pad-x: clamp(24px, 8vw, 190px);
+    }
+
+    body {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-height: 100dvh;
+    }
+
+   
+
+    .header {
+        flex: none;
+        padding: 20px var(--pad-x) 0;
+    }
+
+    .logo {
+        font-size: clamp(1.4rem, 2.2vw, 2rem);
+    }
+
+   
+    .modeSwitch {
+        position: absolute;
+        top: 18px;
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+        width: auto;
+        max-width: none;
+        gap: 36px;
+        padding: 0;
+        background: none;
+        border: none;
+        border-radius: 0;
+    }
+
+    .modeBtn {
+        position: relative;
+        flex: none;
+        padding: 10px 4px;
+        font-size: 1.05rem;
+        background: transparent;
+        border-radius: 0;
+    }
+
+    .modeBtn:hover {
+        color: var(--text);
+    }
+
+    .modeBtn::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 3px;
+        border-radius: 3px;
+        background: linear-gradient(90deg, var(--c1), var(--c2));
+        transform: scaleX(0);
+        transition: transform 0.25s ease;
+    }
+
+    .modeBtn.active {
+        background: transparent;
+        color: var(--text);
+    }
+
+    .modeBtn.active::after {
+        transform: scaleX(1);
+    }
+
+    
+
+    .app {
+        flex: 1;
+        min-height: 0;
+        width: 100%;
+        max-width: none;
+        margin: 0;
+        padding: 0 var(--pad-x) 24px;
+        gap: 0;
+        justify-content: center;
+    }
+
+    .view:not(.hidden) {
+        flex: 1;
+        min-height: 0;
+    }
+
+    .view {
+        --side: clamp(340px, 33vw, 600px);
+        --gap: clamp(40px, 10vw, 260px);
+        --clock: clamp(260px, min(calc(100dvh - 500px), 78vw), 660px);
+        gap: 24px;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+ 
+    .clock {
+        flex: none;
+        width: var(--clock);
+    }
+
+    .controls {
+        flex: none;
+    }
+
+    .time {
+        font-size: calc(var(--clock) * 0.17);
+    }
+
+    /* the timer message sits inside the circle, under the numbers */
+    .timerMessage {
+        min-height: 0;
+        margin: 0;
+        font-size: calc(var(--clock) * 0.045);
+        white-space: nowrap;
+        pointer-events: none;
+    }
+
+    #timerView .timerMessage {
+        align-self: center;
+        height: 0;
+        margin-bottom: -24px;
+        position: relative;
+        top: calc(-1 * (var(--clock) * 0.3 + 24px));
+    }
+
+    /* cards */
+    .laps,
+    .timerSide {
+        width: 100%;
+        max-width: 560px;
+    }
+
+    .laps {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        min-height: 0;
+        padding: 20px;
+    }
+
+    .lapsTitle {
+        font-size: 1.05rem;
+    }
+
+    #lapsList {
+        flex: 1;
+        min-height: 0;
+        max-height: none;
+    }
+
+    .timerSide {
+        padding: 22px;
+        gap: 16px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+    }
+
+    .timerSide::before {
+        content: "Set time";
+        font-size: 1.05rem;
+        font-weight: 500;
+        color: var(--text-muted);
+    }
+}
+
+/*----------------------------desktop*/
+
+@media (min-width: 1120px) {
+
+    .view {
+        --clock: clamp(
+            280px,
+            min(calc(100dvh - 190px), calc(100vw - var(--side) - var(--gap) - 2 * var(--pad-x))),
+            820px
+        );
+        gap: 0;
+    }
+
+    .view:not(.hidden) {
+        display: grid;
+        grid-template-columns: auto minmax(0, var(--side));
+        column-gap: var(--gap);
+        row-gap: 28px;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+        justify-items: center;
+    }
+
+   
+    #stopwatchView .clock,
+    #timerClock {
+        grid-column: 1;
+        grid-row: 1 / span 2;
+    }
+
+    #stopwatchView .controls,
+    #timerView .controls {
+        grid-column: 2;
+        grid-row: 1;
+        align-self: end;
+    }
+
+    #stopwatchView .laps,
+    #timerView .timerSide {
+        grid-column: 2;
+        grid-row: 2;
+        align-self: start;
+        justify-self: stretch;
+        max-width: none;
+    }
+
+    #timerView .timerMessage {
+        grid-column: 1;
+        grid-row: 1 / span 2;
+        align-self: center;
+        justify-self: center;
+        height: auto;
+        margin: calc(var(--clock) * 0.24) 0 0;
+        top: auto;
+        position: relative;
+        z-index: 1;
+    }
+
+    .laps {
+        display: block;
+        flex: none;
+    }
+
+    #lapsList {
+        flex: none;
+        max-height: calc(var(--clock) * 0.32);
+    }
+
+  
+    .btnSide {
+        width: 64px;
+        height: 64px;
+        font-size: 1.2rem;
+    }
+
+    .btnMain {
+        width: 92px;
+        height: 92px;
+        font-size: 1.9rem;
+    }
+
+    .controls {
+        gap: 32px;
+    }
+
+    .lapItem {
+        padding: 12px 14px;
+        font-size: 1.05rem;
+    }
+
+    .presetBtn {
+        padding: 13px 0;
+        font-size: 1rem;
+    }
+
+    .customTime input {
+        min-height: 50px;
+    }
+}
